@@ -1,0 +1,42 @@
+{{ define "main" }}
+<article class="mx-6 my-8">
+    <h1 class="font-bold text-3xl text-primary-text">{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="content">
+        {{ . }}
+    </div>
+    {{ end }}
+</article>
+<div class="bg-secondary-bg rounded px-6 py-8 text-left">
+  {{ $type := .Type }}
+  {{ $.Scratch.Set "count" 1 }}
+
+    {{ range (.Site.RegularPages.GroupByDate "2006") }}
+      {{ if and (gt .Key 1) (gt (where .Pages "Type" $type) 0) }}
+
+        {{ range (where .Pages "Type" $type) }}
+          {{ if (eq ($.Scratch.Get "count") 1) }}
+            {{ $.Scratch.Set "count" 0 }}
+            <h1 class="text-xl text-primary-text my-2">{{ .Date.Format "2006" }}</h1>
+          {{ end }}
+        {{ end }}
+
+        {{ $.Scratch.Set "count" 1 }}
+
+          <ul>
+          {{ range (where .Pages "Type" $type) }}
+            {{ if (ne .Params.hidden true) }}
+              <li>
+                <a  href="{{ .RelPermalink }}">
+                  <span class="text-tertiary-text">{{ .Date.Format "01-02" }} -</span>
+                  <span class="text-lg text-secondary-text">{{ .Title }}</span>
+                </a>
+              </li>
+            {{ end }}
+          {{ end }}
+          </ul>
+
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}
