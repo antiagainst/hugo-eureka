@@ -24,3 +24,9 @@ dark:
   other: 深色
 auto:
   other: 自动
+categories:
+  other: 主题
+series:
+  other: 系列
+tags:
+  other: 标签

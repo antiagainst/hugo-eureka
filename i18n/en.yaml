@@ -24,3 +24,9 @@ dark:
   other: Dark
 auto:
   other: Auto
+categories:
+  other: Categories
+series:
+  other: Series
+tags:
+  other: Tags
