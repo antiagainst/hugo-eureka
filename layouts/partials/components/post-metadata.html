@@ -9,13 +9,14 @@
     </div>
     
     {{ with .GetTerms "categories" }}
+    {{ $count := len . }}
     <div class="mr-6 my-2">
         <i class="fas fa-folder mr-1"></i>
         {{ range $index, $value := . }}
-        {{ if gt $index 0 }}
+        <a href="{{ .Permalink }}" class="hover:text-eureka">{{- .LinkTitle -}}</a>
+        {{- if ne $index (sub $count 1) -}}
         <span>, </span>
-        {{ end -}}
-        <a href="{{ .Permalink }}" class="hover:text-eureka">{{ .LinkTitle }}</a>
+        {{ end }}
         {{ end }}
     </div>
     {{ end }}
