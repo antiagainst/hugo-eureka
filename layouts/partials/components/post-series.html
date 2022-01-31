@@ -3,8 +3,9 @@
     <h3 class="text-lg font-semibold mb-4">{{ i18n "seriesOfPosts"}}</h3>
     <div class="content">
         {{ range (.GetTerms "series") }}
-        {{ range .Pages }}
-        <a href="{{ .Page.Permalink }}">{{ .Page.LinkTitle }}</a>
+        {{ range $index, $page := .Pages.Reverse }}
+        <span>{{ add $index 1 }}.</span>
+        <a href="{{ $page.Permalink }}">{{ $page.LinkTitle }}</a>
         <br />
         {{end}}
         {{end}}
