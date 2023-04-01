@@ -2,12 +2,19 @@
 <div class="bg-secondary-bg rounded p-6">
     <h3 class="text-lg font-semibold mb-4">{{ i18n "seriesOfPosts"}}</h3>
     <div class="content">
-        {{ range (.GetTerms "series") }}
-        {{ range $index, $page := .Pages.Reverse }}
-        <span>{{ add $index 1 }}.</span>
-        <a href="{{ $page.Permalink }}">{{ $page.LinkTitle }}</a>
-        <br />
-        {{end}}
+        {{ range $seriesIndex, $series := .GetTerms "series" }}
+          {{ if ne $seriesIndex 0 }}
+            <br />
+          {{end}}
+          <span class="font-semibold">
+            <i class="fas fa-th-list mr-1"></i>{{ .Page.Title }} »
+          </span>
+          <br />
+          {{ range $pageIndex, $page := $series.Pages.Reverse }}
+            <span>{{ add $pageIndex 1 }}.</span>
+            <a href="{{ $page.Permalink }}">{{ $page.LinkTitle }}</a>
+            <br />
+          {{end}}
         {{end}}
     </div>
 </div>
